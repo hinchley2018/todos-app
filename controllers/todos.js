@@ -4,12 +4,12 @@ const Todo = require('../models/todo')
 let todos = [
     new Todo(1, "Hello World"),
     new Todo(2, "Clean the dishes"),
-    new Todo(3,"Take out the trash")
+    new Todo(3,"Take out the trash",true)
 ]
 
 //list all todos
 router.get("/", (req, res) => {
-    res.send(todos)
+    res.send(todos.filter(t => !t.isCompleted))
 })
 
 //Get by index
