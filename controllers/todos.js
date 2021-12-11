@@ -12,7 +12,7 @@ router.get("/", (req, res) => {
     res.send(todos.filter(t => !t.isCompleted))
 })
 
-//Get by index
+//Get by id
 router.get("/:id", (req, res) => {
     let id = Number(req.params.id)
     let todoIndex = todos.findIndex(t => t.id === id)
@@ -45,6 +45,7 @@ router.post("/", (req, res) => {
 
 //update
 router.put("/:id", (req, res) => {
+    console.log("updating this todo", req.params.id)
     let id = Number(req.params.id)
     if(isNaN(id)){
         res.status(400)
@@ -56,6 +57,7 @@ router.put("/:id", (req, res) => {
             .send(`resource not found with id: ${id}`)
     }
     let todo = todos[todoIndex]
+    todo.isCompleted = req.body.isCompleted
     res.send(todo)
 })
 
@@ -72,7 +74,8 @@ router.delete("/:id", (req, res) => {
             .send(`resource not found with id: ${id}`)
     }
     //remove now that we are valid
-    todos = todos.filter(t => t.id !== id)
+    //id won't be in this filtered list
+    todos = todos.filter(t => t.id !== id) 
     res.send(`resource removed with id: ${id}`)
 })
 
