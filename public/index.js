@@ -14,14 +14,20 @@ async function renderTodos(){
     tBody.innerHTML = ``
     for (let index = 0; index < todos.length; index++) {
         let todo = todos[index];
+        let deleteButton = document.createElement("button")
+        deleteButton.textContent = "Delete"
+        deleteButton.addEventListener("click", function(){
+            deleteTodo(todo.id)
+        })
         let row = document.createElement("tr")
         row.innerHTML = `
         <td>${todo.description}</td>
         <td>
             <button>Complete</button>
-            <button>Delete</button>
+            
         </td>
         `
+        row.children[1].appendChild(deleteButton)
         tBody.appendChild(row)    
     }
     
